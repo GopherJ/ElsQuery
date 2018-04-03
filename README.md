@@ -1,6 +1,6 @@
 # ElsQuery
 
-> Elastic Search Query Builder Of Vuejs which is Like [Kibana Query Builder](https://demo.elastic.co/app/kibana#/dashboard/b7be4700-6837-11e7-bd1c-eb5e5ad48f8b) For
+Elastic Search Query Builder Of Vuejs which is Like [Kibana Query Builder](https://demo.elastic.co/app/kibana#/dashboard/b7be4700-6837-11e7-bd1c-eb5e5ad48f8b) For
 Data Visualisation.
 
 
@@ -133,6 +133,30 @@ Vue.use(ElsQuery, {
     }
   }
 }
+```
+
+
+## Store
+
+`state`
+```javascript
+this.$store.state.TimeRange.dateTimeStart;
+this.$store.state.TimeRange.dateTimeEnd;
+
+this.$store.state.ElsQuery.query;
+```
+
+`mutations`
+```javascript
+this.$store.getters['TimeRange/EDIT_DATE_TIME_START'](new Date());
+this.$store.getters['TimeRange/EDIT_DATE_TIME_END'](new Date());
+
+this.$store.getters['ElsQuery/EDIT_QUERY']({
+    filters,
+    queryString,
+    dateTimeStart,
+    dateTimeEnd
+});
 ```
 
 
