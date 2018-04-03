@@ -1,12 +1,18 @@
 # ElsQuery
 
-Vue Elastic Search Query Builder Like [kibana](https://demo.elastic.co/app/kibana#/dashboard/b7be4700-6837-11e7-bd1c-eb5e5ad48f8b)
+> Elastic Search Query Builder Of Vuejs which is Like [Kibana Query Builder](https://demo.elastic.co/app/kibana#/dashboard/b7be4700-6837-11e7-bd1c-eb5e5ad48f8b) For
+Data Visualisation.
+
+
+## Demo
+
+![](./images/ElsQuery.PNG)
 
 
 ## Environment
 
-- vue 2.5.13
-- buefy 0.6.3
+- `vue 2.5.13`
+- `buefy 0.6.3`
 
 
 ## Installation
@@ -35,33 +41,34 @@ Vue.use(ElsQuery, {
   store
 });
 ```
+
 `index.html`
 ```html
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css">
 ```
+
 `template`
 ```vue
-<els-query @change="(query) => yourMethod(query)"></els-query>
+<els-query @change="(query) => yourMethod(query)" :update-interval="10000"></els-query>
 ```
-
-
-## Demo
-
-![](./images/ElsQuery.PNG)
 
 
 ## Features
 
-- Filters
+- `Filters`
   - `ADD`
   - `EDIT`
   - `DELETE`
-  - `DISABLE`
-- TimeRange
-  - `QUIK`
+  - `DISABLE, ENABLE`
+
+- `TimeRange`
+  - `QUICK`
   - `ABSOLUTE`
-- queryString
+
+- `QueryString`
   - `WILDCARD`
+
+- `AutoRefresh`
 
 ## Options
 
@@ -69,23 +76,63 @@ Vue.use(ElsQuery, {
 
 |key|description|type|default|
 |:---|---|---|---|
-| label|label of panel|String|ElsQuery|
-| filterFactors|factors of elasticsearch|Array|[]|
-| filterFields|fields of _source|Array|`[{ duration: 'duration' }, { userid: 'user.udid' }, { username: 'user.name' }, { device: 'user.device_info.model' }, { zoneid: 'zone.id' }, { zonename: 'zone.name' }, { zonetags: 'zone.tags' }]`;| 
+|`label`|`label of panel`|`String`|`ElsQuery`|
+|`filterFactors`|`factors of elastic search`|`Array`|`[]`|
+|`filterFields`|`fields of _source`|`Array`|`[{ duration: 'duration' }, { userid: 'user.udid' }, { username: 'user.name' }, { device: 'user.device_info.model' }, { zoneid: 'zone.id' }, { zonename: 'zone.name' }, { zonetags: 'zone.tags' }]`;|
+|`filtersOperators`|`operator of a filter`|`Array`|`[{ 'is greater than': 'gt' }, { 'is greater than or equal to': 'gte' }, { 'is less than': 'lt' }, { 'is less than or equal to': 'lte' }, { 'is euqal to': 'is' }, { contains: 'contains' }, { 'is not equal to': 'is not' }, { 'is one of': 'is one of' }, { 'is not one of': 'is not one of' }, { exists: 'exists' }, { 'does not exists': 'does not exists' }]`|
+|`updateInterval`|`auto refresh interval`|`Number`|`1000`|
 
 - Events
 
 |name|description|arguments|
 |:---|---|---|
-|change|query has changed, perhaps caused by activeFilters, queryString, dateTimeStart, dateTimeEnd|new query|
+|`change`|`query has changed, perhaps caused by active Filters, queryString, dateTimeStart, dateTimeEnd`|`query`|
 
 
 ## Example
 
 ![](./images/ElsQuery2.PNG)
 
-```json
-{"query":{"bool":{"must":[{"range":{"timestamp":{"gte":1522739455974,"lte":1522740355974,"format":"epoch_millis"}}},{"range":{"duration":{"gte":"asa"}}},{"bool":{"should":[{"match_phrase":{"zone.id":"sas"}}],"minimum_should_match":1}}],"must_not":[]}}}
+```javascript
+{
+  "query": {
+    "bool": {
+      "must": [
+        {
+          "range": {
+            "timestamp": {
+              "gte": 1522739455974,
+              "lte": 1522740355974,
+              "format": "epoch_millis"
+            }
+          }
+        },
+        {
+          "range": {
+            "duration": {
+              "gte": "asa"
+            }
+          }
+        },
+        {
+          "bool": {
+            "should": [
+              {
+                "match_phrase": {
+                  "zone.id": "sas"
+                }
+              }
+            ],
+            "minimum_should_match": 1
+          }
+        }
+      ],
+      "must_not": [
+
+      ]
+    }
+  }
+}
 ```
 
 

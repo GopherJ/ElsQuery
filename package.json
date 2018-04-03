@@ -31,7 +31,6 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
-    "eslint": "^4.19.0",
     "autoprefixer": "^8.2.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^8.2.1",
@@ -41,6 +40,7 @@
     "babel-preset-stage-0": "^6.24.1",
     "css-loader": "^0.27.3",
     "cssnano": "^3.10.0",
+    "eslint": "^4.19.0",
     "eslint-config-airbnb-base": "^11.3.0",
     "eslint-friendly-formatter": "^3.0.0",
     "eslint-import-resolver-webpack": "^0.8.3",
@@ -58,6 +58,7 @@
     "vue-loader": "^11.1.4",
     "vue-style-loader": "^2.0.2",
     "vue-template-compiler": "^2.2.3",
-    "webpack": "^2.7.0"
+    "webpack": "^4.4.1",
+    "webpack-cli": "^2.0.13"
   }
 }
