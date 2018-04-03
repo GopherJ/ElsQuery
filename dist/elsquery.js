@@ -4,9 +4,9 @@
 	else if(typeof define === 'function' && define.amd)
 		define(["vuex"], factory);
 	else if(typeof exports === 'object')
-		exports["elsquery"] = factory(require("vuex"));
+		exports["ElsQuery"] = factory(require("vuex"));
 	else
-		root["elsquery"] = factory(root["vuex"]);
+		root["ElsQuery"] = factory(root["vuex"]);
 })(this, function(__WEBPACK_EXTERNAL_MODULE_129__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache

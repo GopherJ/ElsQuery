@@ -1,8 +1,8 @@
 {
-  "name": "elsquery",
+  "name": "ElsQuery",
   "version": "0.0.1",
   "description": "elsticsearch query builder",
-  "main": "dist/elsquery.min.js",
+  "main": "dist/ElsQuery.min.js",
   "scripts": {
     "build": "cd scripts && build.sh",
     "lint": "./node_modules/.bin/eslint --ext .js,.vue src --fix"
