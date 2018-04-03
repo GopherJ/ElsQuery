@@ -11,14 +11,14 @@ Vue Elastic Search Query Builder Like [kibana](https://demo.elastic.co/app/kiban
 
 ## Installation
 
-```
+```javascript
 npm i GopherJ/ElsQuery -S
 ```
 
 
 ## Usage
 
-main.js
+`main.js`
 ```javascript
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -35,11 +35,11 @@ Vue.use(ElsQuery, {
   store
 });
 ```
-index.html
+`index.html`
 ```html
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css">
 ```
-template
+`template`
 ```vue
 <els-query @change="(query) => yourMethod(query)"></els-query>
 ```
@@ -53,17 +53,17 @@ template
 ## Features
 
 - Filters
-  - ADD
-  - EDIT
-  - DELETE
-  - DISABLE
+  - `ADD`
+  - `EDIT`
+  - `DELETE`
+  - `DISABLE`
 - TimeRange
-  - QUIK 
-  - ABSOLUTE
+  - `QUIK`
+  - `ABSOLUTE`
 - queryString
-  - WILDCARD
+  - `WILDCARD`
 
-  >Every time you've changed `Filters`, `TimeRange` or `queryString`, you can get the new query in `yourMethod`!
+> Every time you've changed `Filters`, `TimeRange` or `queryString`, you can get the new query in `yourMethod`!
 
 
 ## Options
@@ -77,7 +77,7 @@ template
 | filterFields|fields of _source|Array|[{ duration: 'duration' }, { userid: 'user.udid' }, { username: 'user.name' }, { device: 'user.device_info.model' }, { zoneid: 'zone.id' }, { zonename: 'zone.name' }, { zonetags: 'zone.tags' }];| 
 | filterOperators|operator of a filter|Array|[{ 'is greater than': 'gt' }, { 'is greater than or equal to': 'gte' }, { 'is less than': 'lt' }, { 'is less than or equal to': 'lte' }, { 'is euqal to': 'is' }, { contains: 'contains' }, { 'is not equal to': 'is not' }, { 'is one of': 'is one of' }, { 'is not one of': 'is not one of' }, { exists: 'exists' }, { 'does not exists': 'does not exists' }];|
 
->You can change filterOperators keys, but please don't change filterOperators values!
+> You can change filterOperators keys, but please don't change filterOperators values!
 
 - Events
 
@@ -90,7 +90,7 @@ template
 
 ![](./images/ElsQuery2.PNG)
 
-will generate query
+Will generate query
 ```json
 {"query":{"bool":{"must":[{"range":{"timestamp":{"gte":1522739455974,"lte":1522740355974,"format":"epoch_millis"}}},{"range":{"duration":{"gte":"asa"}}},{"bool":{"should":[{"match_phrase":{"zone.id":"sas"}}],"minimum_should_match":1}}],"must_not":[]}}}
 ```
