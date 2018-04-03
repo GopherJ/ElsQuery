@@ -24,7 +24,6 @@
   ],
   "dependencies": {
     "buefy": "^0.6.3",
-    "eslint": "^4.19.0",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "uuid": "^3.2.1",
@@ -32,6 +31,7 @@
     "vuex": "^3.0.1"
   },
   "devDependencies": {
+    "eslint": "^4.19.0",
     "autoprefixer": "^8.2.0",
     "babel-core": "^6.24.0",
     "babel-eslint": "^8.2.1",
@@ -58,7 +58,6 @@
     "vue-loader": "^11.1.4",
     "vue-style-loader": "^2.0.2",
     "vue-template-compiler": "^2.2.3",
-    "vue2-ace-editor": "0.0.8",
     "webpack": "^2.7.0"
   }
 }
