@@ -1,4 +1,6 @@
 /* eslint-disable */
+import _ from 'lodash';
+
 const namespaced = true;
 
 const state = {
@@ -16,7 +18,7 @@ const state = {
             },
         },
     },
-    query: Object.create(null),
+    query: {},
 };
 
 const mutations = {
@@ -126,10 +128,10 @@ const mutations = {
 
 const getters = {
     GET_QUERY({query}) {
-        return JSON.parse(JSON.stringify(query));
+        return _.cloneDeep(query);
     },
     GET_QUERY_BASE({_query}) {
-        return JSON.parse(JSON.stringify(_query));
+        return _.cloneDeep(_query);
     },
 };
 
