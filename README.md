@@ -146,12 +146,20 @@ this.$store.state.TimeRange.dateTimeEnd;
 this.$store.state.ElsQuery.query;
 ```
 
+`getters`
+```
+this.$store.getters['ElsQuery/GET_QUERY'];
+```
+
 `mutations`
 ```javascript
-this.$store.getters['TimeRange/EDIT_DATE_TIME_START'](new Date());
-this.$store.getters['TimeRange/EDIT_DATE_TIME_END'](new Date());
+// store module `TimeRange`
+this.$store.commit('TimeRange/EDIT_DATE_TIME_START', new Date());
+this.$store.commit('TimeRange/EDIT_DATE_TIME_END', new Date());
 
-this.$store.getters['ElsQuery/EDIT_QUERY']({
+// store module `ElsQuery`
+// this is a mutation internal which means you should avoid to use it directly
+this.$store.commit('ElsQuery/EDIT_QUERY', {
     filters,
     queryString,
     dateTimeStart,

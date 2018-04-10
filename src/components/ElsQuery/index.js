@@ -1,3 +1,3 @@
-import ElsQuery from './ElsQuery.vue';
+import ElsQuery from './ElsQuery';
 
 export default ElsQuery;
