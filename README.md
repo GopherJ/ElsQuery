@@ -168,6 +168,12 @@ this.$store.commit('ElsQuery/EDIT_QUERY', {
 ```
 
 
+## ToDO
+
+- `Make TimeRange A Nested Store Module`
+- `Separate Filters Component To Elements`
+
+
 ## License
 MIT
 
