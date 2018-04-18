@@ -23,7 +23,7 @@ const state = {
 
 const mutations = {
     EDIT_QUERY({_query}, {filters, queryString, dateTimeStart, dateTimeEnd}) {
-        const query = JSON.parse(JSON.stringify(_query));
+        const query = _.cloneDeep(_query);
 
         const must = query.query.bool.must;
         const must_not = query.query.bool.must_not;
