@@ -37,6 +37,7 @@
             </div>
         </div>
 
+        <!--filter part-->
         <div class="panel-block">
             <div class="control">
                 <div class="columns overflow-auto">
@@ -52,7 +53,9 @@
                         <!--filter form-->
                         <b-message class="absolute z-index-30">
                             <label class="label">Filter</label>
+
                             <div class="field is-grouped level">
+                                <!--filter field-->
                                 <b-select
                                     placeholder="Add a filter"
                                     v-model="filterFactor">
@@ -82,6 +85,7 @@
                                     </optgroup>
                                 </b-select>
 
+                                <!--filter operator-->
                                 <b-select
                                     placeholder="Operator"
                                     v-if="filterFactor !== null"
@@ -96,6 +100,7 @@
                                     </template>
                                 </b-select>
 
+                                <!--filter value-->
                                 <component
                                     v-if="
                                     filterOperator !== null &&
@@ -109,6 +114,7 @@
                                 </component>
                             </div>
 
+                            <!--filter label-->
                             <b-field label="Label">
                                 <b-input placeholder="Optional"
                                          v-model.trim="filterLabel"
@@ -116,12 +122,15 @@
                                 </b-input>
                             </b-field>
 
+                            <!--buttons-->
                             <div class="field is-grouped is-grouped-right">
+                                <!--cancel button-->
                                 <div class="control">
                                     <button class="button" @click.stop="filterInputClear">
                                         Cancel
                                     </button>
                                 </div>
+                                <!--save button-->
                                 <div class="control">
                                     <button class="button is-primary" @click.stop="addUpdateFilter">
                                         Save
@@ -164,6 +173,7 @@
                         </div>
                     </div>
 
+                    <!--time range picker label-->
                     <div class="column is-narrow">
                         <button class="button is-outlined is-primary"
                                 @click.stop="isTimeRangeOpen = !isTimeRangeOpen">
@@ -174,6 +184,7 @@
                         </button>
                     </div>
 
+                    <!--auto refresh-->
                     <div class="column is-narrow">
                         <button class="button is-outlined is-primary"
                                 @click.stop="autoUpdateDateTimeEnd = !autoUpdateDateTimeEnd">
@@ -185,6 +196,7 @@
             </div>
         </div>
 
+        <!--time range picker-->
         <div class="panel-block is-paddingless" v-show="isTimeRangeOpen">
             <time-range class="bg-grey control" @tagClicked="timeRangeClose"></time-range>
         </div>
@@ -281,11 +293,11 @@
                         {'is less than': 'lt'},
                         {'is less than or equal to': 'lte'},
                         {'is equal to': 'is'},
-                        {contains: 'contains'},
+                        {'contains': 'contains'},
                         {'is not equal to': 'is not'},
                         {'is one of': 'is one of'},
                         {'is not one of': 'is not one of'},
-                        {exists: 'exists'},
+                        {'exists': 'exists'},
                         {'does not exists': 'does not exists'},
                     ];
                 },
@@ -363,7 +375,7 @@
 
                 const entry = ['exists', 'does not exists'].includes(filterOperator)
                     ? {factor: filterFactor, operator: filterOperator}
-                    : {factor: filterFactor, operator: filterOperator, value: filterValue};
+                    : {factor: filterFactor, operator: filterOperator, value: parseFloat(filterValue) || parseFloat(filterValue) === 0 ? parseFloat(filterValue) : filterValue};
 
                 const id = filterId || uuid();
 
@@ -496,7 +508,7 @@
     };
 </script>
 
-<style>
+<style scoped>
     .absolute {
         position: absolute;
     }
