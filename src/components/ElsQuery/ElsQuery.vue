@@ -58,7 +58,8 @@
                                 <!--filter field-->
                                 <b-select
                                     placeholder="Add a filter"
-                                    v-model="filterFactor">
+                                    v-model="filterFactor"
+                                    expanded>
                                     <optgroup
                                         v-if="filterFactors.length !== 0"
                                         label="Node">
@@ -118,6 +119,7 @@
                             <b-field label="Label">
                                 <b-input placeholder="Optional"
                                          v-model.trim="filterLabel"
+                                         expanded
                                          @keyup.native.enter="addUpdateFilter">
                                 </b-input>
                             </b-field>
@@ -274,13 +276,14 @@
                 type: Array,
                 default() {
                     return [
-                        {duration: 'duration'},
-                        {userid: 'user.udid'},
-                        {username: 'user.name'},
-                        {device: 'user.device_info.model'},
-                        {zoneid: 'zone.id'},
-                        {zonename: 'zone.name'},
-                        {zonetag: 'zone.tags'},
+                        {'duration': 'duration'},
+                        {'userid': 'user.udid'},
+                        {'username': 'user.name'},
+                        {'device': 'user.device_info.model'},
+                        {'zoneid': 'zone.id'},
+                        {'zonename': 'zone.name'},
+                        {'zonetag': 'zone.tags'},
+                        {'eventstyle': 'event.style'}
                     ];
                 },
             },
