@@ -128,10 +128,10 @@ const mutations = {
 
 const getters = {
     GET_QUERY({query}) {
-        return _.cloneDeep(query);
+        return query;
     },
     GET_QUERY_BASE({_query}) {
-        return _.cloneDeep(_query);
+        return _query;
     },
 };
 

@@ -37,10 +37,10 @@
             </div>
         </div>
 
-        <!--filter part-->
         <div class="panel-block">
             <div class="control">
                 <div class="columns overflow-auto">
+                    <!--filter part-->
                     <b-collapse :open.sync="isFilterOpen" class="column is-narrow">
                         <!--Add a filter button-->
                         <button class="button is-outlined is-primary" slot="trigger">
@@ -128,7 +128,7 @@
                             <div class="field is-grouped is-grouped-right">
                                 <!--cancel button-->
                                 <div class="control">
-                                    <button class="button" @click.stop="filterInputClear">
+                                    <button class="button" @click.stop="clearFilter">
                                         Cancel
                                     </button>
                                 </div>
@@ -142,20 +142,17 @@
                         </b-message>
                     </b-collapse>
 
+                    <slot></slot>
+
                     <!--queryString-->
                     <div class="column field has-addons is-marginless">
                         <!--queryString input-->
                         <div class="control is-expanded has-icons-left">
                             <input v-focus class="input is-primary"
-                                v-model.trim="queryString"
-                                placeholder="e.g. zone.name: tech AND user.device_info: m"
-                                @keyup.enter="EDIT_QUERY({
-                                    filters: activeFilters,
-                                    dateTimeStart,
-                                    dateTimeEnd,
-                                    queryString,
-                                }); $emit('change', GET_QUERY);">
-                                <span class="icon is-left">
+                                   v-model.trim="queryString"
+                                   placeholder="e.g. zone.name: tech AND user.device_info: m"
+                                   @keyup.enter="editQuery">
+                            <span class="icon is-left">
                                     <i class="mdi mdi-magnify mdi-24px"></i>
                                 </span>
                         </div>
@@ -163,12 +160,7 @@
                         <!--queryString button-->
                         <div class="control">
                             <button class="button is-outlined is-primary"
-                                @click.stop="EDIT_QUERY({
-                                  filters: activeFilters,
-                                  dateTimeStart,
-                                  dateTimeEnd,
-                                  queryString,
-                                }); $emit('change', GET_QUERY);">
+                                    @click.stop="editQuery">
                                 <b-icon icon="magnify"></b-icon>
                                 <span>Search</span>
                             </button>
@@ -200,17 +192,17 @@
 
         <!--time range picker-->
         <div class="panel-block is-paddingless" v-show="isTimeRangeOpen">
-            <time-range class="bg-grey control" @tagClicked="timeRangeClose"></time-range>
+            <time-range class="bg-grey control" @tag-click="timeRangeClose"></time-range>
         </div>
     </b-collapse>
 </template>
 
 <script>
-/* eslint-disable */
+    /* eslint-disable */
     import {mapMutations, mapState, mapGetters} from 'vuex';
     import moment from 'moment';
     import uuid from 'uuid/v1';
-    import TimeRange from '../TimeRange';
+    import TimeRange from 'vue-time-range';
 
 
     const FindIndex = (arr, key, value) => {
@@ -313,7 +305,7 @@
             ...mapMutations('TimeRange', [
                 'EDIT_DATE_TIME_END'
             ]),
-            filterInputClear() {
+            clearFilter() {
                 this.filterFactor = null;
                 this.filterOperator = null;
                 this.filterValue = null;
@@ -326,6 +318,15 @@
             },
             timeRangeClose() {
                 this.isTimeRangeOpen = false;
+            },
+            editQuery() {
+                this.EDIT_QUERY({
+                    filters: this.activeFilters,
+                    dateTimeStart: this.dateTimeStart,
+                    dateTimeEnd: this.dateTimeEnd,
+                    queryString: this.queryString,
+                });
+                this.$emit('change', this.GET_QUERY);
             },
             warningFilterLabelExists() {
                 this.$snackbar.open({
@@ -378,7 +379,11 @@
 
                 const entry = ['exists', 'does not exists'].includes(filterOperator)
                     ? {factor: filterFactor, operator: filterOperator}
-                    : {factor: filterFactor, operator: filterOperator, value: parseFloat(filterValue) || parseFloat(filterValue) === 0 ? parseFloat(filterValue) : filterValue};
+                    : {
+                        factor: filterFactor,
+                        operator: filterOperator,
+                        value: parseFloat(filterValue) || parseFloat(filterValue) === 0 ? parseFloat(filterValue) : filterValue
+                    };
 
                 const id = filterId || uuid();
 
@@ -417,7 +422,7 @@
                     }
                 }
 
-                this.filterInputClear();
+                this.clearFilter();
             },
         },
         computed: {
@@ -486,7 +491,7 @@
             });
 
             // watch time range and filters
-            this.$watch(vm => JSON.stringify([
+            this.unwatch = this.$watch(vm => JSON.stringify([
                 vm.dateTimeStart.valueOf(),
                 vm.dateTimeEnd.valueOf(),
                 vm.activeFilters,
@@ -507,6 +512,9 @@
                 this.EDIT_QUERY(payload);
                 this.$emit('change', this.GET_QUERY);
             });
+        },
+        beforeDestroy() {
+            this.unwatch();
         }
     };
 </script>
