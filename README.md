@@ -19,6 +19,8 @@ Data Visualisation.
 
 ```javascript
 npm i GopherJ/ElsQuery -S
+
+npm i -S els-query
 ```
 
 
