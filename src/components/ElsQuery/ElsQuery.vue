@@ -148,11 +148,12 @@
                     <div class="column field has-addons is-marginless">
                         <!--queryString input-->
                         <div class="control is-expanded has-icons-left">
-                            <input v-focus class="input is-primary"
-                                   v-model.trim="queryString"
-                                   placeholder="e.g. zone.name: tech AND user.device_info: m"
-                                   @keyup.enter="editQuery">
-                            <span class="icon is-left">
+                            <input
+                                v-focus class="input is-primary"
+                                v-model.trim="queryString"
+                                placeholder="e.g. zone.name: tech AND user.device_info: m"
+                                @keyup.enter="editQuery"/>
+                                <span class="icon is-left">
                                     <i class="mdi mdi-magnify mdi-24px"></i>
                                 </span>
                         </div>
