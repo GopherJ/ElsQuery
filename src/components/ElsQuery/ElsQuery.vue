@@ -540,3 +540,10 @@
         overflow: auto;
     }
 </style>
+
+<style>
+    .message-body {
+        border-width: 1px;
+    }
+</style>
+
