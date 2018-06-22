@@ -151,7 +151,7 @@
                             <input
                                 v-focus class="input is-primary"
                                 v-model.trim="queryString"
-                                placeholder="e.g. zone.name: tech AND user.device_info: m"
+                                placeholder="e.g. zone.name: tech AND user.device_info.model: m"
                                 @keyup.enter="editQuery"/>
                                 <span class="icon is-left">
                                     <i class="mdi mdi-magnify mdi-24px"></i>
@@ -186,7 +186,6 @@
                             <b-icon :icon="autoUpdateDateTimeEnd ? 'eye-off' : 'eye'"></b-icon>
                         </button>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -204,7 +203,6 @@
     import moment from 'moment';
     import uuid from 'uuid/v1';
     import TimeRange from 'vue-time-range';
-
 
     const FindIndex = (arr, key, value) => {
         for (let i = 0; i < arr.length; i++) {
