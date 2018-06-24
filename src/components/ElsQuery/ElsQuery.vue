@@ -381,7 +381,7 @@
                     : {
                         factor: filterFactor,
                         operator: filterOperator,
-                        value: parseFloat(filterValue) || parseFloat(filterValue) === 0 ? parseFloat(filterValue) : filterValue
+                        value: isNaN(+filterValue) ? filterValue : +filterValue
                     };
 
                 const id = filterId || uuid();
