@@ -202,7 +202,7 @@
     import {mapMutations, mapState, mapGetters} from 'vuex';
     import moment from 'moment';
     import uuid from 'uuid/v1';
-    import TimeRange from 'vue-time-range';
+    import { TimeRange } from 'vue-time-range';
 
     const FindIndex = (arr, key, value) => {
         for (let i = 0; i < arr.length; i++) {
