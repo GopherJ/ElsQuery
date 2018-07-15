@@ -268,13 +268,28 @@
                 default() {
                     return [
                         {'duration': 'duration'},
-                        {'userid': 'user.udid'},
-                        {'username': 'user.name'},
-                        {'device': 'user.device_info.model'},
-                        {'zoneid': 'zone.id'},
-                        {'zonename': 'zone.name'},
-                        {'zonetag': 'zone.tags'},
-                        {'eventstyle': 'event.style'}
+
+                        {'user_id': 'user.udid'},
+                        {'user_name': 'user.name'},
+
+                        {'device_model': 'user.device_info.model'},
+                        {'device_system': 'user.device_info.system_name'},
+
+                        {'zone_id': 'zone.id'},
+                        {'zone_name': 'zone.name'},
+                        {'zone_tags': 'zone.tags'},
+
+                        // alerts
+                        {'event_title': 'event.title'},
+                        {'event_type': 'event.type'},
+
+                        // zone_fences
+                        {'enter_zone': 'enter'},
+                        {'exit_zone': 'exit'},
+
+                        // positions
+                        {'latitude': 'location.lat'},
+                        {'longitude': 'location.lon'}
                     ];
                 },
             },
