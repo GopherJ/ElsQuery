@@ -7,7 +7,7 @@ Elastic Search Query Builder Of Vuejs which is Like [Kibana Query Builder](https
 
 ## Demo
 
-![](./images/ElsQuery.PNG)
+![](./images/ElsQuery-Absolute.PNG)
 
 
 ## Environment
@@ -26,6 +26,7 @@ npm i -S els-query
 ## Usage
 
 `main.js`
+
 ```javascript
 import Vue from 'vue';
 import Vuex from 'vuex';
@@ -44,11 +45,13 @@ Vue.use(ElsQuery, {
 ```
 
 `index.html`
+
 ```html
 <link rel="stylesheet" href="//cdn.materialdesignicons.com/2.0.46/css/materialdesignicons.min.css">
 ```
 
 `template`
+
 ```vue
 <els-query @change="(query) => yourMethod(query)" :update-interval="10000"></els-query>
 ```
@@ -79,7 +82,7 @@ Vue.use(ElsQuery, {
 |:---|---|---|---|
 |`label`|`label of panel`|`String`|`ElsQuery`|
 |`filterFactors`|`factors of elastic search`|`Array`|`[]`|
-|`filterFields`|`fields of _source`|`Array`|`[{"duration":"duration"},{"user_id":"user.udid"},{"user_name":"user.name"},{"device_model":"user.device_info.model"},{"device_system":"user.device_info.system_name"},{"device_system_api":"user.device_info.system_api_id"},{"device_system_build":"user.device_info.system_build_number"},{"device_system_version":"user.device_info.system_version"},{"zone_id":"zone.id"},{"zone_name":"zone.name"},{"zone_tags":"zone.tags"},{"event_title":"event.title"},{"event_type":"event.type"},{"latitude":"location.lat"},{"longitude":"location.lon"}]`|
+|`filterFields`|`fields of _source`|`Array`|`[{"duration":"duration"},{"user_id":"user.udid"},{"user_name":"user.name"},{"device_model":"user.device_info.model"},{"device_system":"user.device_info.system_name"},{"device_system_api":"user.device_info.system_api_id"},{"device_system_build":"user.device_info.system_build_number"},{"device_system_version":"user.device_info.system_version"},{"zone_id":"zone.id"},{"zone_name":"zone.name"},{"zone_tags":"zone.tags"},{"event_title":"event.title"},{"event_type":"event.type"},{"event_style":"event.style"},{"latitude":"location.lat"},{"longitude":"location.lon"}]`|
 |`updateInterval`|`auto refresh interval`|`Number`|`1000`|
 
 - Events
@@ -91,7 +94,7 @@ Vue.use(ElsQuery, {
 
 ## Example
 
-![](./images/ElsQuery2.PNG)
+![](./images/ElsQuery-Quick.PNG)
 
 ```javascript
 {

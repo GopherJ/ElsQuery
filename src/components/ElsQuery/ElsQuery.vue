@@ -4,7 +4,14 @@
         <div slot="trigger" class="panel-heading">
             <div class="level is-mobile">
                 <div class="level-left">
-                    <strong v-text="label"></strong>
+                    <div class="level-item">
+                        <figure class="image is-24x24">
+                            <img src="../../../images/elastic.png" alt="ElsQuery Logo">
+                        </figure>
+                    </div>
+                    <div class="level-item">
+                        <strong v-text="label"></strong>
+                    </div>
                 </div>
                 <div class="level-right">
                     <b-icon :icon="isPanelOpen ? 'menu-up' : 'menu-down'"></b-icon>
@@ -284,6 +291,7 @@
 
                         {'event_title': 'event.title'},
                         {'event_type': 'event.type'},
+                        {'event_style': 'event.style'},
 
                         {'latitude': 'location.lat'},
                         {'longitude': 'location.lon'},
