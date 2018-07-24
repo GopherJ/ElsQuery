@@ -1,6 +1,6 @@
 {
   "name": "els-query",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "elsticsearch query builder",
   "main": "dist/ElsQuery.min.js",
   "scripts": {
@@ -23,7 +23,7 @@
     "buefy"
   ],
   "dependencies": {
-    "buefy": "^0.6.3",
+    "buefy": "^0.6.6",
     "lodash": "^4.17.5",
     "moment": "^2.21.0",
     "uuid": "^3.2.1",

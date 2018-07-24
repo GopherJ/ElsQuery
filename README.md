@@ -1,7 +1,8 @@
 # ElsQuery
 
-Elastic Search Query Builder Of Vuejs which is Like [Kibana Query Builder](https://demo.elastic.co/app/kibana#/dashboard/b7be4700-6837-11e7-bd1c-eb5e5ad48f8b) For
-Data Visualisation.
+Elastic Search Query Builder Of Vuejs which is Like [Kibana Query Builder](https://demo.elastic.co/app/kibana#/dashboard/b7be4700-6837-11e7-bd1c-eb5e5ad48f8b). See also :
+
+- [TimeRange](https://github.com/GopherJ/TimeRange)
 
 
 ## Demo
@@ -12,14 +13,12 @@ Data Visualisation.
 ## Environment
 
 - `vue 2.5.13`
-- `buefy 0.6.3`
+- `buefy 0.6.6`
 
 
 ## Installation
 
 ```javascript
-npm i GopherJ/ElsQuery -S
-
 npm i -S els-query
 ```
 
@@ -80,15 +79,14 @@ Vue.use(ElsQuery, {
 |:---|---|---|---|
 |`label`|`label of panel`|`String`|`ElsQuery`|
 |`filterFactors`|`factors of elastic search`|`Array`|`[]`|
-|`filterFields`|`fields of _source`|`Array`|`[{ duration: 'duration' }, { userid: 'user.udid' }, { username: 'user.name' }, { device: 'user.device_info.model' }, { zoneid: 'zone.id' }, { zonename: 'zone.name' }, { zonetags: 'zone.tags' }]`;|
-|`filtersOperators`|`operator of a filter`|`Array`|`[{ 'is greater than': 'gt' }, { 'is greater than or equal to': 'gte' }, { 'is less than': 'lt' }, { 'is less than or equal to': 'lte' }, { 'is euqal to': 'is' }, { contains: 'contains' }, { 'is not equal to': 'is not' }, { 'is one of': 'is one of' }, { 'is not one of': 'is not one of' }, { exists: 'exists' }, { 'does not exists': 'does not exists' }]`|
+|`filterFields`|`fields of _source`|`Array`|`[{"duration":"duration"},{"user_id":"user.udid"},{"user_name":"user.name"},{"device_model":"user.device_info.model"},{"device_system":"user.device_info.system_name"},{"device_system_api":"user.device_info.system_api_id"},{"device_system_build":"user.device_info.system_build_number"},{"device_system_version":"user.device_info.system_version"},{"zone_id":"zone.id"},{"zone_name":"zone.name"},{"zone_tags":"zone.tags"},{"event_title":"event.title"},{"event_type":"event.type"},{"latitude":"location.lat"},{"longitude":"location.lon"}]`|
 |`updateInterval`|`auto refresh interval`|`Number`|`1000`|
 
 - Events
 
 |name|description|arguments|
 |:---|---|---|
-|`change`|`query has changed, perhaps caused by active Filters, queryString, dateTimeStart, dateTimeEnd`|`query`|
+|`change`|`query has changed, perhaps caused by filters, queryString, dateTimeStart, dateTimeEnd`|`(query)`|
 
 
 ## Example
@@ -142,38 +140,26 @@ Vue.use(ElsQuery, {
 
 `state`
 ```javascript
+// TimeRange module
 this.$store.state.TimeRange.dateTimeStart;
 this.$store.state.TimeRange.dateTimeEnd;
 
+// ElsQuery module
 this.$store.state.ElsQuery.query;
 ```
 
 `getters`
 ```
+// recommend to deep clone this query so that you won't change the internal query
 this.$store.getters['ElsQuery/GET_QUERY'];
 ```
 
 `mutations`
 ```javascript
-// store module `TimeRange`
 this.$store.commit('TimeRange/EDIT_DATE_TIME_START', new Date());
 this.$store.commit('TimeRange/EDIT_DATE_TIME_END', new Date());
-
-// store module `ElsQuery`
-// this is a mutation internal which means you should avoid to use it directly
-this.$store.commit('ElsQuery/EDIT_QUERY', {
-    filters,
-    queryString,
-    dateTimeStart,
-    dateTimeEnd
-});
 ```
 
-
-## ToDO
-
-- `Make TimeRange A Nested Store Module`
-- `Separate Filters Component To Elements`
 
 
 ## License

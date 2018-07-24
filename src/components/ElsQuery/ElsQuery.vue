@@ -7,7 +7,7 @@
                     <strong v-text="label"></strong>
                 </div>
                 <div class="level-right">
-                    <b-icon :icon="isPanelOpen ? 'chevron-up' : 'chevron-down'"></b-icon>
+                    <b-icon :icon="isPanelOpen ? 'menu-up' : 'menu-down'"></b-icon>
                 </div>
             </div>
         </div>
@@ -274,22 +274,19 @@
 
                         {'device_model': 'user.device_info.model'},
                         {'device_system': 'user.device_info.system_name'},
+                        {'device_system_api': 'user.device_info.system_api_id'},
+                        {'device_system_build': 'user.device_info.system_build_number'},
+                        {'device_system_version': 'user.device_info.system_version'},
 
                         {'zone_id': 'zone.id'},
                         {'zone_name': 'zone.name'},
                         {'zone_tags': 'zone.tags'},
 
-                        // alerts
                         {'event_title': 'event.title'},
                         {'event_type': 'event.type'},
 
-                        // zone_fences
-                        {'enter_zone': 'enter'},
-                        {'exit_zone': 'exit'},
-
-                        // positions
                         {'latitude': 'location.lat'},
-                        {'longitude': 'location.lon'}
+                        {'longitude': 'location.lon'},
                     ];
                 },
             },

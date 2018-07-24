@@ -48,9 +48,7 @@ const mutations = {
                     timestamp.lte = dateTimeEnd.valueOf();
                     timestamp.format = 'epoch_millis';
                 }
-            } catch (e) {
-                continue;
-            }
+            } catch (e) { }
         }
 
         // 3. activeFilters
