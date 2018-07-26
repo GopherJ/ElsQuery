@@ -4,14 +4,7 @@
         <div slot="trigger" class="panel-heading">
             <div class="level is-mobile">
                 <div class="level-left">
-                    <div class="level-item">
-                        <figure class="image is-24x24">
-                            <img src="../../../images/elastic.png" alt="ElsQuery Logo">
-                        </figure>
-                    </div>
-                    <div class="level-item">
-                        <strong v-text="label"></strong>
-                    </div>
+                    <strong v-text="label"></strong>
                 </div>
                 <div class="level-right">
                     <b-icon :icon="isPanelOpen ? 'menu-up' : 'menu-down'"></b-icon>
