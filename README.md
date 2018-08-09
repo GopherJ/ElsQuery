@@ -165,19 +165,6 @@ this.$store.commit('TimeRange/EDIT_DATE_TIME_END', new Date());
 
 
 
-## Contribute
-
-1. create your own branch on gitlab
-2. `git clone ssh://git@git.ubudu.com:10022/GopherJ/els-query.git`
-    1. `cd els-query`
-    2. `git checkout -b [branch name]`
-    3. `make changes`
-    4. `npm run build`
-    5. `git add . && git commit -m "[message]" && git push origin [branch name]`
-    6. `send PR`
-
-
-
 ## License
 MIT
 
