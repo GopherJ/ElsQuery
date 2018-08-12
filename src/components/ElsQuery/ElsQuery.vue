@@ -199,10 +199,12 @@
 
 <script>
     /* eslint-disable */
-    import {mapMutations, mapState, mapGetters} from 'vuex';
+    import { mapMutations, mapState, mapGetters } from 'vuex';
     import moment from 'moment';
     import uuid from 'uuid/v1';
     import { TimeRange } from 'vue-time-range';
+    import { debounce } from 'lodash';
+    import Interval from '../../utils/interval';
 
     const FindIndex = (arr, key, value) => {
         for (let i = 0; i < arr.length; i++) {
@@ -481,11 +483,13 @@
             autoUpdateDateTimeEnd: {
                 handler(n) {
                     if (n) {
-                        this.interval = window.setInterval(() => {
+                        this.interval = new Interval(() => {
                             this.EDIT_DATE_TIME_END(new Date());
                         }, this.updateInterval);
+
+                        this.interval.start();
                     } else {
-                        window.clearInterval(this.interval);
+                        this.interval.stop()
                     }
                 }
             }
@@ -527,6 +531,8 @@
         },
         beforeDestroy() {
             this.unwatch();
+
+            if (this.interval.isRunning()) this.interval.stop();
         }
     };
 </script>
