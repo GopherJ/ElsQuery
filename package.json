@@ -27,7 +27,7 @@
     "moment": "^2.21.0",
     "uuid": "^3.2.1",
     "vue": "^2.5.13",
-    "vue-time-range": "0.0.6",
+    "vue-time-range": "0.0.7",
     "vuex": "^3.0.1"
   },
   "devDependencies": {
