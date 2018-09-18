@@ -1,5 +1,5 @@
 <template>
-    <u-card class="u-els-query" :label="$t('rtAnalytics.queryBuilder.label')">
+    <u-card class="u-els-query" :label="$t('UAnalytics.queryBuilder.label')">
 
         <div class="u-card-block" v-if="filters.length !== 0">
             <div class="field is-grouped is-grouped-multiline">
@@ -26,7 +26,7 @@
         </div>
 
         <div class="u-card-block">
-            <div class="columns overflow-auto">
+            <div class="columns overflow-auto is-multiline">
                 <b-collapse :open.sync="isFilterOpen" class="column is-narrow">
                     <button class="button is-outlined is-primary" slot="trigger">
                         <b-icon :icon=" filterId ? 'pencil' : 'plus'"></b-icon>
@@ -126,34 +126,33 @@
                             v-model.trim="queryString"
                             placeholder="e.g. zone.name: tech AND user.device_info.model: m"
                             @keyup.enter="editQuery"/>
-                        <span class="icon is-left">
-                                    <i class="mdi mdi-magnify mdi-24px"></i>
-                                </span>
+
+                            <span class="icon is-left">
+                                <i class="mdi mdi-magnify mdi-24px"></i>
+                            </span>
                     </div>
 
                     <div class="control">
                         <button class="button is-outlined is-primary"
-                                @click.stop="editQuery">
+                            @click.stop="editQuery">
                             <b-icon icon="magnify"></b-icon>
                             <span>Search</span>
                         </button>
                     </div>
                 </div>
 
-                <div class="column is-narrow">
+                <div class="column is-narrow is-hidden-mobile">
                     <button class="button is-outlined is-primary"
                             @click.stop="isTimeRangeOpen = !isTimeRangeOpen">
-                        <b-icon icon="clock"></b-icon>
-                        <span>
-                                {{ timeRangeLabel }}
-                            </span>
+                            <b-icon icon="clock"></b-icon>
+                            <span>{{ timeRangeLabel }}</span>
                     </button>
                 </div>
 
                 <div class="column is-narrow">
                     <button class="button is-outlined is-primary"
                             @click.stop="autoUpdateDateTimeEnd = !autoUpdateDateTimeEnd">
-                        <b-icon :icon="autoUpdateDateTimeEnd ? 'eye-off' : 'eye'"></b-icon>
+                            <b-icon :icon="autoUpdateDateTimeEnd ? 'eye-off' : 'eye'"></b-icon>
                     </button>
                 </div>
             </div>
