@@ -201,7 +201,7 @@
             return {
                 isPanelOpen: true,
                 isFilterOpen: false,
-                isTimeRangeOpen: false,
+                isTimeRangeOpen: true,
 
                 filterId: null,
                 filterIsActive: null,

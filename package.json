@@ -1,6 +1,6 @@
 {
   "name": "els-query",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "elsticsearch query builder",
   "main": "dist/ElsQuery.min.js",
   "scripts": {
