@@ -526,7 +526,7 @@
 
 <style>
     .message-body {
-        border-width: 1px;
+        border-width: 1px !important;
     }
 </style>
 
