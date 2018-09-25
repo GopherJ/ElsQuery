@@ -26,136 +26,137 @@
         </div>
 
         <div class="u-card-block">
-            <div class="columns overflow-auto is-multiline">
-                <b-collapse :open.sync="isFilterOpen" class="column is-narrow">
-                    <button class="button is-outlined is-primary" slot="trigger">
-                        <b-icon :icon=" filterId ? 'pencil' : 'plus'"></b-icon>
-                        <span>
-                                {{ filterId ? 'Edit a filter' : 'Add a filter' }}
-                            </span>
-                    </button>
+            <section style="padding: 1.5rem;">
+                <div class="columns overflow-auto is-multiline">
+                    <b-collapse :open.sync="isFilterOpen" class="column is-narrow">
+                        <button class="button is-outlined is-primary" slot="trigger">
+                            <b-icon :icon=" filterId ? 'pencil' : 'plus'"></b-icon>
+                            <span>{{ filterId ? 'Edit a filter' : 'Add a filter' }}</span>
+                        </button>
 
-                    <b-message class="absolute z-index-30">
-                        <label class="label">Filter</label>
+                        <b-message class="absolute z-index-30">
+                            <label class="label">Filter</label>
 
-                        <div class="field is-grouped level">
-                            <b-select
-                                placeholder="Add a filter"
-                                v-model="filterFactor"
-                                expanded>
-                                <optgroup
-                                    v-if="filterFactors.length !== 0"
-                                    label="Node">
-                                    <template v-for="filterFactor of filterFactors">
+                            <div class="field is-grouped level">
+                                <b-select
+                                    placeholder="Add a filter"
+                                    v-model="filterFactor"
+                                    expanded>
+                                    <optgroup
+                                        v-if="filterFactors.length !== 0"
+                                        label="Node">
+                                        <template v-for="filterFactor of filterFactors">
+                                            <option
+                                                v-for="(value, key) in filterFactor"
+                                                v-text="key"
+                                                :value="value"
+                                                :key="value">
+                                            </option>
+                                        </template>
+                                    </optgroup>
+                                    <optgroup
+                                        v-if="filterFields.length !== 0"
+                                        label="Source">
+                                        <template v-for="filterField of filterFields">
+                                            <option
+                                                v-for="(value, key) in filterField"
+                                                v-text="key"
+                                                :value="value"
+                                                :key="value">
+                                            </option>
+                                        </template>
+                                    </optgroup>
+                                </b-select>
+
+                                <b-select
+                                    placeholder="Operator"
+                                    v-if="filterFactor !== null"
+                                    v-model="filterOperator">
+                                    <template v-for="filterOperator of filterOperators">
                                         <option
-                                            v-for="(value, key) in filterFactor"
+                                            v-for="(value, key) in filterOperator"
                                             v-text="key"
                                             :value="value"
                                             :key="value">
                                         </option>
                                     </template>
-                                </optgroup>
-                                <optgroup
-                                    v-if="filterFields.length !== 0"
-                                    label="Source">
-                                    <template v-for="filterField of filterFields">
-                                        <option
-                                            v-for="(value, key) in filterField"
-                                            v-text="key"
-                                            :value="value"
-                                            :key="value">
-                                        </option>
-                                    </template>
-                                </optgroup>
-                            </b-select>
+                                </b-select>
 
-                            <b-select
-                                placeholder="Operator"
-                                v-if="filterFactor !== null"
-                                v-model="filterOperator">
-                                <template v-for="filterOperator of filterOperators">
-                                    <option
-                                        v-for="(value, key) in filterOperator"
-                                        v-text="key"
-                                        :value="value"
-                                        :key="value">
-                                    </option>
-                                </template>
-                            </b-select>
-
-                            <component
-                                v-if="
+                                <component
+                                    v-if="
                                     filterOperator !== null &&
                                     filterOperator !== 'exists' &&
                                     filterOperator !== 'does not exists'"
-                                :is="isMultiValues ? 'b-taginput' : 'b-input'"
-                                :placeholder="isMultiValues ? 'Comma separated' : 'Add a value'"
-                                :confirm-key-codes="isMultiValues ? [188] : false"
-                                @keyup.native.enter="addUpdateFilter"
-                                v-model.trim="filterValue">
-                            </component>
-                        </div>
-
-                        <b-field label="Label">
-                            <b-input placeholder="Optional"
-                                     v-model.trim="filterLabel"
-                                     expanded
-                                     @keyup.native.enter="addUpdateFilter">
-                            </b-input>
-                        </b-field>
-
-                        <div class="field is-grouped is-grouped-right">
-                            <div class="control">
-                                <button class="button" @click.stop="clearFilter">
-                                    Cancel
-                                </button>
+                                    :is="isMultiValues ? 'b-taginput' : 'b-input'"
+                                    :placeholder="isMultiValues ? 'Comma separated' : 'Add a value'"
+                                    :confirm-key-codes="isMultiValues ? [188] : false"
+                                    @keyup.native.enter="addUpdateFilter"
+                                    v-model.trim="filterValue">
+                                </component>
                             </div>
-                            <div class="control">
-                                <button class="button is-primary" @click.stop="addUpdateFilter">
-                                    Save
-                                </button>
-                            </div>
-                        </div>
-                    </b-message>
-                </b-collapse>
 
-                <div class="column field has-addons is-marginless">
-                    <div class="control is-expanded has-icons-left">
-                        <input
-                            v-focus class="input is-primary"
-                            v-model.trim="queryString"
-                            placeholder="e.g. zone.name: tech AND user.device_info.model: m"
-                            @keyup.enter="editQuery"/>
+                            <b-field label="Label">
+                                <b-input placeholder="Optional"
+                                         v-model.trim="filterLabel"
+                                         expanded
+                                         @keyup.native.enter="addUpdateFilter">
+                                </b-input>
+                            </b-field>
+
+                            <div class="field is-grouped is-grouped-right">
+                                <div class="control">
+                                    <button class="button" @click.stop="clearFilter">
+                                        Cancel
+                                    </button>
+                                </div>
+
+                                <div class="control">
+                                    <button class="button is-primary" @click.stop="addUpdateFilter">
+                                        Save
+                                    </button>
+                                </div>
+                            </div>
+                        </b-message>
+                    </b-collapse>
+
+                    <div class="column field has-addons is-marginless">
+                        <div class="control is-expanded has-icons-left">
+                            <input
+                                v-focus class="input is-primary"
+                                v-model.trim="queryString"
+                                placeholder="e.g. zone.name: tech AND user.device_info.model: m"
+                                @keyup.enter="editQuery"/>
 
                             <span class="icon is-left">
                                 <i class="mdi mdi-magnify mdi-24px"></i>
                             </span>
+                        </div>
+
+                        <div class="control">
+                            <button class="button is-outlined is-primary"
+                                    @click.stop="editQuery">
+                                    <b-icon icon="magnify"></b-icon>
+                                    <span>Search</span>
+                            </button>
+                        </div>
                     </div>
 
-                    <div class="control">
+                    <div class="column is-narrow">
                         <button class="button is-outlined is-primary"
-                            @click.stop="editQuery">
-                            <b-icon icon="magnify"></b-icon>
-                            <span>Search</span>
+                                @click.stop="isTimeRangeOpen = !isTimeRangeOpen">
+                                <b-icon icon="clock"></b-icon>
+                                <span>{{ timeRangeLabel }}</span>
+                        </button>
+                    </div>
+
+                    <div class="column is-narrow">
+                        <button class="button is-outlined is-primary"
+                                @click.stop="autoUpdateDateTimeEnd = !autoUpdateDateTimeEnd">
+                                <b-icon :icon="autoUpdateDateTimeEnd ? 'eye-off' : 'eye'"></b-icon>
                         </button>
                     </div>
                 </div>
-
-                <div class="column is-narrow is-hidden-mobile">
-                    <button class="button is-outlined is-primary"
-                            @click.stop="isTimeRangeOpen = !isTimeRangeOpen">
-                            <b-icon icon="clock"></b-icon>
-                            <span>{{ timeRangeLabel }}</span>
-                    </button>
-                </div>
-
-                <div class="column is-narrow">
-                    <button class="button is-outlined is-primary"
-                            @click.stop="autoUpdateDateTimeEnd = !autoUpdateDateTimeEnd">
-                            <b-icon :icon="autoUpdateDateTimeEnd ? 'eye-off' : 'eye'"></b-icon>
-                    </button>
-                </div>
-            </div>
+            </section>
         </div>
 
         <div class="u-card-block" v-show="isTimeRangeOpen">
