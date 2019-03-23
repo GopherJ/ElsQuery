@@ -1,5 +1,5 @@
 /* eslint-disable */
-import _ from 'lodash';
+import { cloneDeep } from 'lodash';
 
 const namespaced = true;
 
@@ -23,7 +23,7 @@ const state = {
 
 const mutations = {
     EDIT_QUERY({_query}, {filters, queryString, dateTimeStart, dateTimeEnd}) {
-        const query = _.cloneDeep(_query);
+        const query = cloneDeep(_query);
 
         const must = query.query.bool.must;
         const must_not = query.query.bool.must_not;
@@ -113,8 +113,8 @@ const mutations = {
                 }
             } else if (operator === 'contains') {
                 must.push({
-                    match: {
-                        [factor]: value,
+                    wildcard: {
+                        [factor]: '*' + value + '*',
                     },
                 });
             }

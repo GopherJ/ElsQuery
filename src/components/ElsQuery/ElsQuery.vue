@@ -84,9 +84,9 @@
 
                                 <component
                                     v-if="
-                                    filterOperator !== null &&
-                                    filterOperator !== 'exists' &&
-                                    filterOperator !== 'does not exists'"
+                                        filterOperator !== null &&
+                                        filterOperator !== 'exists' &&
+                                        filterOperator !== 'does not exists'"
                                     :is="isMultiValues ? 'b-taginput' : 'b-input'"
                                     :placeholder="isMultiValues ? 'Comma separated' : 'Add a value'"
                                     :confirm-key-codes="isMultiValues ? [188] : false"
@@ -96,10 +96,11 @@
                             </div>
 
                             <b-field label="Label">
-                                <b-input placeholder="Optional"
-                                         v-model.trim="filterLabel"
-                                         expanded
-                                         @keyup.native.enter="addUpdateFilter">
+                                <b-input
+                                     placeholder="Optional"
+                                     v-model.trim="filterLabel"
+                                     expanded
+                                     @keyup.native.enter="addUpdateFilter">
                                 </b-input>
                             </b-field>
 
@@ -133,26 +134,29 @@
                         </div>
 
                         <div class="control">
-                            <button class="button is-outlined is-primary"
-                                    @click.stop="editQuery">
-                                    <b-icon icon="magnify"></b-icon>
-                                    <span>Search</span>
+                            <button
+                                class="button is-outlined is-primary"
+                                @click.stop="editQuery">
+                                <b-icon icon="magnify"/>
+                                <span>Search</span>
                             </button>
                         </div>
                     </div>
 
                     <div class="column is-narrow">
-                        <button class="button is-outlined is-primary"
-                                @click.stop="isTimeRangeOpen = !isTimeRangeOpen">
-                                <b-icon icon="clock"></b-icon>
-                                <span>{{ timeRangeLabel }}</span>
+                        <button
+                            class="button is-outlined is-primary"
+                            @click.stop="isTimeRangeOpen = !isTimeRangeOpen">
+                            <b-icon icon="clock"/>
+                            <span>{{ timeRangeLabel }}</span>
                         </button>
                     </div>
 
                     <div class="column is-narrow">
-                        <button class="button is-outlined is-primary"
-                                @click.stop="autoUpdateDateTimeEnd = !autoUpdateDateTimeEnd">
-                                <b-icon :icon="autoUpdateDateTimeEnd ? 'eye-off' : 'eye'"></b-icon>
+                        <button
+                            class="button is-outlined is-primary"
+                            @click.stop="autoUpdateDateTimeEnd = !autoUpdateDateTimeEnd">
+                            <b-icon :icon="autoUpdateDateTimeEnd ? 'eye-off' : 'eye'"/>
                         </button>
                     </div>
                 </div>
@@ -172,7 +176,7 @@
     import uuid from 'uuid/v1';
     import {TimeRange} from 'vue-time-range';
     import UCard from '../UCard';
-    import {debounce} from 'lodash';
+    import {debounce, throttle} from 'lodash';
     import Interval from '../../utils/interval';
 
     const FindIndex = (arr, key, value) => {
@@ -271,12 +275,12 @@
                         {'is less than': 'lt'},
                         {'is less than or equal to': 'lte'},
                         {'is equal to': 'is'},
-                        {'contains': 'contains'},
                         {'is not equal to': 'is not'},
                         {'is one of': 'is one of'},
                         {'is not one of': 'is not one of'},
                         {'exists': 'exists'},
                         {'does not exists': 'does not exists'},
+                        {'contains': 'contains'},
                     ];
                 },
             },
@@ -352,7 +356,12 @@
 
                 const filters = this.filters;
 
-                if (!filterFactor || !filterOperator || !['exists', 'does not exists'].includes(filterOperator) && filterValue === null) {
+                if (
+                    !filterFactor
+                    || !filterOperator
+                    || (!['exists', 'does not exists'].includes(filterOperator) && !filterValue)
+                    || (['is one of', 'is not one of'].includes(filterOperator) && !filterValue.length)
+                ) {
                     return;
                 }
 
@@ -362,6 +371,12 @@
 
                 const entry = ['exists', 'does not exists'].includes(filterOperator)
                     ? {factor: filterFactor, operator: filterOperator}
+                    : ['is none of', 'is not one of'].includes(filterOperator)
+                    ? {
+                        factor: filterFactor,
+                        operator: filterOperator,
+                        value: value.map(x => isNaN(+x) ? x : +x)
+                    }
                     : {
                         factor: filterFactor,
                         operator: filterOperator,
@@ -371,7 +386,6 @@
                 const id = filterId || uuid();
 
                 const label = filterLabel || text;
-
 
                 const filter = {
                     id,
@@ -481,7 +495,7 @@
                 vm.dateTimeStart.valueOf(),
                 vm.dateTimeEnd.valueOf(),
                 vm.activeFilters,
-            ]), function (n, o) {
+            ]), throttle((n, o) => {
                 const dateTimeEnd = this.dateTimeEnd;
                 const dateTimeStart = this.dateTimeStart;
 
@@ -497,7 +511,7 @@
 
                 this.EDIT_QUERY(payload);
                 this.$emit('change', this.GET_QUERY);
-            });
+            }, 250));
         },
         beforeDestroy() {
             this.unwatch();
