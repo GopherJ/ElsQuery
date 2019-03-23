@@ -34,68 +34,61 @@
                             <span>{{ filterId ? 'Edit a filter' : 'Add a filter' }}</span>
                         </button>
 
-                        <b-message class="absolute z-index-30">
-                            <label class="label">Filter</label>
-
-                            <div class="field is-grouped level">
-                                <b-select
-                                    placeholder="Add a filter"
-                                    v-model="filterFactor"
-                                    expanded>
-                                    <optgroup
-                                        v-if="filterFactors.length !== 0"
-                                        label="Node">
-                                        <template v-for="filterFactor of filterFactors">
+                        <b-message class="absolute z-index-30" v-if="isFilterOpen">
+                            <b-field label="Filter">
+                                <b-field grouped>
+                                    <b-select
+                                        placeholder="Add a filter"
+                                        v-model="filterFactor"
+                                        expanded>
+                                        <optgroup
+                                            v-if="filterFactors.length !== 0"
+                                            label="Node">
                                             <option
-                                                v-for="(value, key) in filterFactor"
-                                                v-text="key"
-                                                :value="value"
-                                                :key="value">
+                                                v-for="factor of filterFactors"
+                                                v-text="factor.key"
+                                                :value="factor.value"
+                                                :key="factor.value">
                                             </option>
-                                        </template>
-                                    </optgroup>
-                                    <optgroup
-                                        v-if="filterFields.length !== 0"
-                                        label="Source">
-                                        <template v-for="filterField of filterFields">
+                                        </optgroup>
+                                        <optgroup
+                                            v-if="filterFields.length"
+                                            label="Source">
                                             <option
-                                                v-for="(value, key) in filterField"
-                                                v-text="key"
-                                                :value="value"
-                                                :key="value">
+                                                v-for="field of filterFields"
+                                                v-text="field.key"
+                                                :value="field.value"
+                                                :key="field.value">
                                             </option>
-                                        </template>
-                                    </optgroup>
-                                </b-select>
+                                        </optgroup>
+                                    </b-select>
 
-                                <b-select
-                                    placeholder="Operator"
-                                    v-if="filterFactor !== null"
-                                    v-model="filterOperator">
-                                    <template v-for="filterOperator of filterOperators">
+                                    <b-select
+                                        placeholder="Operator"
+                                        v-if="filterFactor !== null"
+                                        v-model="filterOperator">
                                         <option
-                                            v-for="(value, key) in filterOperator"
-                                            v-text="key"
-                                            :value="value"
-                                            :key="value">
+                                            v-for="operator of filterOperators"
+                                            v-text="operator.key"
+                                            :value="operator.value"
+                                            :key="operator.value">
                                         </option>
-                                    </template>
-                                </b-select>
+                                    </b-select>
 
-                                <component
-                                    v-if="
-                                        filterOperator !== null &&
-                                        filterOperator !== 'exists' &&
-                                        filterOperator !== 'does not exists'"
-                                    :is="isMultiValues ? 'b-taginput' : 'b-input'"
-                                    :style="isMultiValues ? {'transform': 'translateY(-6px)'} : {}"
-                                    :title="isMultiValues ? 'Hit comma to enter another value' : null"
-                                    :placeholder="isMultiValues ? 'Comma separated' : 'Add a value'"
-                                    :confirm-key-codes="isMultiValues ? [188] : false"
-                                    @keyup.native.enter="addUpdateFilter"
-                                    v-model.trim="filterValue">
-                                </component>
-                            </div>
+                                    <component
+                                        v-if="
+                                            filterOperator !== null &&
+                                            filterOperator !== 'exists' &&
+                                            filterOperator !== 'does not exists'"
+                                        :is="isMultiValues ? 'b-taginput' : 'b-input'"
+                                        :title="isMultiValues ? 'Hit comma to enter another value' : null"
+                                        :placeholder="isMultiValues ? 'Comma separated' : 'Add a value'"
+                                        :confirm-key-codes="isMultiValues ? [188] : false"
+                                        @keyup.native.enter="addUpdateFilter"
+                                        v-model.trim="filterValue">
+                                    </component>
+                                </b-field>
+                            </b-field>
 
                             <b-field label="Label">
                                 <b-input
@@ -106,26 +99,18 @@
                                 </b-input>
                             </b-field>
 
-                            <div class="field is-grouped is-grouped-right">
-                                <div class="control">
-                                    <button class="button" @click.stop="clearFilter">
-                                        Cancel
-                                    </button>
-                                </div>
-
-                                <div class="control">
-                                    <button class="button is-primary" @click.stop="addUpdateFilter">
-                                        Save
-                                    </button>
-                                </div>
-                            </div>
+                            <b-field grouped position="is-right">
+                                <button class="control button" @click.stop="clearFilter">Cancel</button>
+                                <button class="control button is-primary" @click.stop="addUpdateFilter">Save</button>
+                            </b-field>
                         </b-message>
                     </b-collapse>
 
                     <div class="column field has-addons is-marginless">
                         <div class="control is-expanded has-icons-left">
                             <input
-                                v-focus class="input is-primary"
+                                v-focus
+                                class="input is-primary"
                                 v-model.trim="queryString"
                                 placeholder="e.g. zone.name: tech AND user.device_info.model: m"
                                 @keyup.enter="editQuery"/>
@@ -244,27 +229,27 @@
                 type: Array,
                 default() {
                     return [
-                        {'duration': 'duration'},
+                        { key: 'duration', value: 'duration' },
 
-                        {'user_id': 'user.udid'},
-                        {'user_name': 'user.name'},
+                        { key: 'user_id', value: 'user.udid' },
+                        { key: 'user_name', value: 'user.name' },
 
-                        {'device_model': 'user.device_info.model'},
-                        {'device_system': 'user.device_info.system_name'},
-                        {'device_system_api': 'user.device_info.system_api_id'},
-                        {'device_system_build': 'user.device_info.system_build_number'},
-                        {'device_system_version': 'user.device_info.system_version'},
+                        { key: 'device_model', value: 'user.device_info.model' },
+                        { key: 'device_system', value: 'user.device_info.system_name' },
+                        { key: 'device_system_api', value: 'user.device_info.system_api_id' },
+                        { key: 'device_system_build', value: 'user.device_info.system_build_number' },
+                        { key: 'device_system_version', value: 'user.device_info.system_version' },
 
-                        {'zone_id': 'zone.id'},
-                        {'zone_name': 'zone.name'},
-                        {'zone_tags': 'zone.tags'},
+                        { key: 'zone_id', value: 'zone.id' },
+                        { key: 'zone_name', value: 'zone.name' },
+                        { key: 'zone_tags', value: 'zone.tags' },
 
-                        {'event_title': 'event.title'},
-                        {'event_type': 'event.type'},
-                        {'event_style': 'event.style'},
+                        { key: 'event_title', value: 'event.title' },
+                        { key: 'event_type', value: 'event.type' },
+                        { key: 'event_style', value: 'event.style' },
 
-                        {'latitude': 'location.lat'},
-                        {'longitude': 'location.lon'},
+                        { key: 'latitude', value: 'location.lat' },
+                        { key: 'longitude', value: 'location.lon' },
                     ];
                 },
             },
@@ -272,17 +257,17 @@
                 type: Array,
                 default() {
                     return [
-                        {'is greater than': 'gt'},
-                        {'is greater than or equal to': 'gte'},
-                        {'is less than': 'lt'},
-                        {'is less than or equal to': 'lte'},
-                        {'is equal to': 'is'},
-                        {'is not equal to': 'is not'},
-                        {'is one of': 'is one of'},
-                        {'is not one of': 'is not one of'},
-                        {'exists': 'exists'},
-                        {'does not exists': 'does not exists'},
-                        {'contains': 'contains'},
+                        { key: 'is greater than', value: 'gt'},
+                        { key: 'is greater than or equal to', value: 'gte'},
+                        { key: 'is less than', value: 'lt'},
+                        { key: 'is less than or equal to', value: 'lte'},
+                        { key: 'is equal to', value: 'is'},
+                        { key: 'is not equal to', value: 'is not'},
+                        { key: 'is one of', value: 'is one of'},
+                        { key: 'is not one of', value: 'is not one of'},
+                        { key: 'exists', value: 'exists'},
+                        { key: 'does not exists', value: 'does not exists'},
+                        { key: 'contains', value: 'contains'},
                     ];
                 },
             },
