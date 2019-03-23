@@ -88,6 +88,8 @@
                                         filterOperator !== 'exists' &&
                                         filterOperator !== 'does not exists'"
                                     :is="isMultiValues ? 'b-taginput' : 'b-input'"
+                                    :style="isMultiValues ? {'transform': 'translateY(-6px)'} : {}"
+                                    :title="isMultiValues ? 'Hit comma to enter another value' : null"
                                     :placeholder="isMultiValues ? 'Comma separated' : 'Add a value'"
                                     :confirm-key-codes="isMultiValues ? [188] : false"
                                     @keyup.native.enter="addUpdateFilter"
