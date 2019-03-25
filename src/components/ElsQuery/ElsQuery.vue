@@ -232,6 +232,7 @@
                         { key: 'duration', value: 'duration' },
 
                         { key: 'user_id', value: 'user.udid' },
+                        { key: 'user_tags', value: 'user.tags' },
                         { key: 'user_name', value: 'user.name' },
 
                         { key: 'device_model', value: 'user.device_info.model' },
