@@ -504,7 +504,7 @@
         beforeDestroy() {
             this.unwatch();
 
-            if (this.interval.isRunning()) this.interval.stop();
+            if (this.interval && this.interval.isRunning()) this.interval.stop();
         }
     };
 </script>
