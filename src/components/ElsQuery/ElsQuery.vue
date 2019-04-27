@@ -163,7 +163,7 @@
     import uuid from 'uuid/v1';
     import {TimeRange} from 'vue-time-range';
     import UCard from '../UCard';
-    import {debounce, throttle} from 'lodash';
+    import {debounce} from 'lodash';
     import Interval from '../../utils/interval';
 
     const FindIndex = (arr, key, value) => {
@@ -483,7 +483,7 @@
                 vm.dateTimeStart.valueOf(),
                 vm.dateTimeEnd.valueOf(),
                 vm.activeFilters,
-            ]), throttle((n, o) => {
+            ]), debounce((n, o) => {
                 const dateTimeEnd = this.dateTimeEnd;
                 const dateTimeStart = this.dateTimeStart;
 
