@@ -23,4 +23,3 @@ export {
     TimeRange,
     TimeRangeStore
 };
-
