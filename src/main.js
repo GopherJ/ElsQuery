@@ -1,7 +1,7 @@
 /* eslint-disable */
 import ElsQuery from './components/ElsQuery';
 import ElsQueryStore from './store/ElsQueryStore';
-import { TimeRangeStore } from 'vue-time-range';
+import { TimeRangeStore, TimeRange } from 'vue-time-range';
 
 const install = (Vue, options = {}) => {
     if (options.store) {
@@ -18,6 +18,9 @@ export default {
 
 export {
     ElsQuery,
-    ElsQueryStore
+    ElsQueryStore,
+
+    TimeRange,
+    TimeRangeStore
 };
 
