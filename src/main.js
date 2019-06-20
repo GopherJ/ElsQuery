@@ -6,7 +6,7 @@ import { TimeRangeStore, TimeRange } from 'vue-time-range';
 const install = (Vue, options = {}) => {
     if (options.store) {
         options.store.registerModule('ElsQuery', ElsQueryStore);
-        options.store.registerModule('TimeRange', TimeRangeStore);
+        options.store.registerModule('TimeRange', TimeRangeStore());
     }
 
     Vue.component(ElsQuery.name, ElsQuery);
