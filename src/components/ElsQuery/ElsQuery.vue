@@ -34,7 +34,7 @@
                             <span>{{ filterId ? 'Edit a filter' : 'Add a filter' }}</span>
                         </button>
 
-                        <b-message class="absolute z-index-30" v-if="isFilterOpen">
+                        <b-message class="absolute z-index-30" v-show="isFilterOpen">
                             <b-field label="Filter">
                                 <b-field grouped>
                                     <b-select
@@ -114,7 +114,6 @@
                                 v-model.trim="queryString"
                                 placeholder="e.g. zone.name: tech AND user.device_info.model: m"
                                 @keyup.enter="editQuery"/>
-
                             <span class="icon is-left">
                                 <i class="mdi mdi-magnify mdi-24px"></i>
                             </span>
@@ -163,7 +162,7 @@
     import uuid from 'uuid/v1';
     import {TimeRange} from 'vue-time-range';
     import UCard from '../UCard';
-    import {debounce} from 'lodash';
+    import {debounce, cloneDeep} from 'lodash';
     import Interval from '../../utils/interval';
 
     const FindIndex = (arr, key, value) => {
@@ -248,9 +247,6 @@
                         { key: 'event_title', value: 'event.title' },
                         { key: 'event_type', value: 'event.type' },
                         { key: 'event_style', value: 'event.style' },
-
-                        { key: 'latitude', value: 'location.lat' },
-                        { key: 'longitude', value: 'location.lon' },
                     ];
                 },
             },
@@ -319,7 +315,7 @@
             },
             editFilter(filter) {
                 const {id, label, isActive} = filter;
-                const {factor, operator, value} = filter.entry;
+                const {factor, operator, value} = cloneDeep(filter.entry);
 
                 this.isFilterOpen = true;
 
@@ -363,7 +359,7 @@
                     ? {
                         factor: filterFactor,
                         operator: filterOperator,
-                        value: value.map(x => isNaN(+x) ? x : +x)
+                        value: filterValue.map(x => isNaN(+x) ? x : +x)
                     }
                     : {
                         factor: filterFactor,
@@ -532,4 +528,3 @@
         border-width: 1px !important;
     }
 </style>
-

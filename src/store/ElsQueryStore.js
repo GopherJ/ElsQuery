@@ -40,15 +40,13 @@ const mutations = {
 
         // 2. dateTimeStart, dateTimeEnd
         for (const el of must) {
-            try {
-                const { timestamp } = el.range;
+            if (el.range && el.range.timestamp) {
+                const {timestamp} = el.range;
 
-                if (timestamp) {
-                    timestamp.gte = dateTimeStart.valueOf();
-                    timestamp.lte = dateTimeEnd.valueOf();
-                    timestamp.format = 'epoch_millis';
-                }
-            } catch (e) { }
+                timestamp.gte = dateTimeStart.valueOf();
+                timestamp.lte = dateTimeEnd.valueOf();
+                timestamp.format = 'epoch_millis';
+            }
         }
 
         // 3. activeFilters
@@ -108,7 +106,12 @@ const mutations = {
                         });
                         break;
                     case 'is not one of':
-                        must_not.push(...value.map(el => ({match_phrase: {[factor]: el}})));
+                        must_not.push({
+                            bool: {
+                                should: value.map(el => ({match_phrase: {[factor]: el}})),
+                                minimum_should_match: 1
+                            }
+                        });
                         break;
                 }
             } else if (operator === 'contains') {
