@@ -1,7 +1,7 @@
 <template>
     <u-card class="u-els-query" :label="$t('UAnalytics.queryBuilder.label')">
 
-        <div class="u-card-block" v-if="filters.length !== 0">
+        <div class="u-card-tabs" v-if="filters.length !== 0">
             <div class="field is-grouped is-grouped-multiline">
                 <div class="control" v-for="(filter, index) of filters" :key="filter.id">
                     <b-taglist attached>
