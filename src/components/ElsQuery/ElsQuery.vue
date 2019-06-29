@@ -1,7 +1,7 @@
 <template>
     <u-card class="u-els-query" :label="$t('UAnalytics.queryBuilder.label')">
 
-        <div class="u-card-tabs" v-if="filters.length !== 0">
+        <div class="u-card-tabs" v-show="filters.length !== 0">
             <div class="field is-grouped is-grouped-multiline">
                 <div class="control" v-for="(filter, index) of filters" :key="filter.id">
                     <b-taglist attached>
@@ -27,7 +27,7 @@
 
         <div class="u-card-block">
             <section style="padding: 1.5rem;">
-                <div class="columns overflow-auto is-multiline">
+                <div class="columns overflow-auto is-multiline is-mobile">
                     <b-collapse :open.sync="isFilterOpen" class="column is-narrow">
                         <button class="button is-outlined is-primary" slot="trigger">
                             <b-icon :icon=" filterId ? 'pencil' : 'plus'"></b-icon>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
 
-                    <div class="column is-narrow">
+                    <div class="column is-narrow is-hidden-mobile">
                         <button
                             class="button is-outlined is-primary"
                             @click.stop="isTimeRangeOpen = !isTimeRangeOpen">
@@ -138,7 +138,7 @@
                         </button>
                     </div>
 
-                    <div class="column is-narrow">
+                    <div class="column is-narrow is-hidden-mobile">
                         <button
                             class="button is-outlined is-primary"
                             @click.stop="autoUpdateDateTimeEnd = !autoUpdateDateTimeEnd">

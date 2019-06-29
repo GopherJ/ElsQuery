@@ -1,6 +1,6 @@
 {
     "name": "els-query",
-    "version": "1.2.3",
+    "version": "1.2.4",
     "description": "elsticsearch query builder",
     "main": "dist/ElsQuery.min.js",
     "scripts": {
@@ -27,7 +27,7 @@
         "moment": "^2.21.0",
         "uuid": "^3.2.1",
         "vue": "^2.5.13",
-        "vue-time-range": "0.1.6",
+        "vue-time-range": "0.2.1",
         "vuex": "^3.0.1"
     },
     "devDependencies": {
