@@ -120,6 +120,12 @@ const mutations = {
                         [factor]: '*' + value + '*',
                     },
                 });
+            } else if (operator === 'not contains') {
+                must_not.push({
+                    wildcard: {
+                        [factor]: '*' + value + '*',
+                    },
+                });
             }
         }
 

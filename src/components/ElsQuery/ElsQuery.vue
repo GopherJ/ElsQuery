@@ -29,12 +29,12 @@
             <section style="padding: 1.5rem;">
                 <div class="columns overflow-auto is-multiline is-mobile">
                     <b-collapse :open.sync="isFilterOpen" class="column is-narrow">
-                        <button class="button is-outlined is-primary" slot="trigger">
+                        <button class="button is-outlined is-primary" slot="trigger" ref="filterTrigger">
                             <b-icon :icon=" filterId ? 'pencil' : 'plus'"></b-icon>
                             <span>{{ filterId ? 'Edit a filter' : 'Add a filter' }}</span>
                         </button>
 
-                        <b-message class="absolute z-index-30" v-show="isFilterOpen">
+                        <b-message class="absolute z-index-30" v-show="isFilterOpen" v-click-outside="hideFilter">
                             <b-field label="Filter">
                                 <b-field grouped>
                                     <b-select
@@ -164,6 +164,7 @@
     import UCard from '../UCard';
     import {debounce, cloneDeep} from 'lodash';
     import Interval from '../../utils/interval';
+    import ClickOutside from 'vue-click-outside';
 
     const FindIndex = (arr, key, value) => {
         for (let i = 0; i < arr.length; i++) {
@@ -265,6 +266,7 @@
                         { key: 'exists', value: 'exists'},
                         { key: 'does not exists', value: 'does not exists'},
                         { key: 'contains', value: 'contains'},
+                        { key: 'not contains', value: 'not contains'},
                     ];
                 },
             },
@@ -276,6 +278,9 @@
             ...mapMutations('TimeRange', [
                 'EDIT_DATE_TIME_END'
             ]),
+            hideFilter() {
+                this.isFilterOpen = false;
+            },
             clearFilter() {
                 this.filterFactor = null;
                 this.filterOperator = null;
@@ -438,6 +443,7 @@
                     el.focus();
                 },
             },
+            ClickOutside
         },
         watch: {
             filterOperator: {
@@ -466,6 +472,7 @@
             [UCard.name]: UCard
         },
         mounted() {
+            this.popupItem = this.$refs.filterTrigger;
             // initialisation
             this.EDIT_QUERY({
                 dateTimeStart: this.dateTimeStart,
