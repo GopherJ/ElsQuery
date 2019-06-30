@@ -473,13 +473,6 @@
         },
         mounted() {
             this.popupItem = this.$refs.filterTrigger;
-            // initialisation
-            this.EDIT_QUERY({
-                dateTimeStart: this.dateTimeStart,
-                dateTimeEnd: this.dateTimeEnd,
-                filters: this.activeFilters,
-                queryString: this.queryString,
-            });
 
             // watch time range and filters
             this.unwatch = this.$watch(vm => JSON.stringify([

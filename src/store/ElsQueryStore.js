@@ -18,7 +18,23 @@ const state = {
             },
         },
     },
-    query: {},
+    query: {
+        query: {
+            bool: {
+                must: [
+                    {
+                        range: {
+                            timestamp: {
+                                gte: new Date(new Date().valueOf() - 15 * 60 * 1000).valueOf(),
+                                lte: new Date().valueOf()
+                            },
+                        },
+                    },
+                ],
+                must_not: [],
+            },
+        },
+    },
 };
 
 const mutations = {
