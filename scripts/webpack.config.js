@@ -89,7 +89,7 @@ config.module = {
 process.traceDeprecation = true;
 if (process.env.NODE_ENV === 'production') {
     config.output.filename = "ElsQuery.min.js"
-    config.devtool = '#source-map';
+    // config.devtool = '#source-map';
 
     // Pass build environment inside bundle
     // This will strip comments in Vue code & hort-circuits all Vue.js warning code
