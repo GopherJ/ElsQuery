@@ -82,7 +82,7 @@ Vue.use(ElsQuery, {
 |:---|---|---|---|
 |`label`|`label of panel`|`String`|`ElsQuery`|
 |`filterFactors`|`factors of elastic search`|`Array`|`[]`|
-|`filterFields`|`fields of _source`|`Array`|`[{"duration":"duration"},{"user_id":"user.udid"},{"user_name":"user.name"},{"device_model":"user.device_info.model"},{"device_system":"user.device_info.system_name"},{"device_system_api":"user.device_info.system_api_id"},{"device_system_build":"user.device_info.system_build_number"},{"device_system_version":"user.device_info.system_version"},{"zone_id":"zone.id"},{"zone_name":"zone.name"},{"zone_tags":"zone.tags"},{"event_title":"event.title"},{"event_type":"event.type"},{"event_style":"event.style"},{"latitude":"location.lat"},{"longitude":"location.lon"}]`|
+|`filterFields`|`fields of _source`|`Array`|`[{ key: "test", value: "duration" },{ key: "user_id", value: "user.udid" },{ key: "user_tags", value: "user.tags" },{ key: "user_name", value: "user.name" },{ key: "device_model", value: "user.device_info.model" },{ key: "device_system", value: "user.device_info.system_name" },{ key: "device_system_api", value: "user.device_info.system_api_id" },{ key: "device_system_build", value: "user.device_info.system_build_number" },{ key: "device_system_version", value: "user.device_info.system_version" },{ key: "zone_id", value: "zone.id" },{ key: "zone_name", value: "zone.name" },{ key: "zone_tags", value: "zone.tags" },{ key: "event_title", value: "event.title" },{ key: "event_type", value: "event.type" },{ key: "event_style", value: "event.style" }]`|
 |`updateInterval`|`auto refresh interval`|`Number`|`1000`|
 
 - Events
