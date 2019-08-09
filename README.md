@@ -30,7 +30,7 @@ npm i -S els-query
 ```javascript
 import Vue from 'vue';
 import Vuex from 'vuex';
-import ElsQuery from 'ElsQuery';
+import ElsQuery from 'els-query';
 import Buefy from 'buefy';
 import 'buefy/lib/buefy.min.css';
 

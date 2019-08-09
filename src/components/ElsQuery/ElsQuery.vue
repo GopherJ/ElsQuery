@@ -1,5 +1,5 @@
 <template>
-    <u-card class="u-els-query" :label="$t('UAnalytics.queryBuilder.label')">
+    <u-card class="u-els-query" :label="label">
 
         <div class="u-card-tabs" v-show="filters.length !== 0">
             <div class="field is-grouped is-grouped-multiline">

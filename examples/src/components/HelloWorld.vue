@@ -1,7 +1,7 @@
 <template>
-    <div class="hello">
+    <div>
         <els-query @change="(query) => yourMethod(query)" :update-interval="10000"></els-query>
-        <pre>
+        <pre style="background-color: #FFF; text-align: center;">
             {{ query ? JSON.stringify(query, null, 4) : '' }}
         </pre>
     </div>
@@ -25,7 +25,4 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-    .hello {
-        margin: 0 auto;
-    }
 </style>
